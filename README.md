@@ -36,3 +36,13 @@ SQL(short for Simplified SQL) is a subset of features in standard SQL language. 
   * num (number) is a sequence of digits. (of 32-bits)
   * Reserved keywords are case-insensitive.
   * If the default value is not specified, 0 is used implicitly.
+  * A valid create statement is:
+    - can be derived from the context free grammar
+    - no duplicate column names
+    - no two or more primary key declarations
+    - primary key contains only columns in the table
+    - table name doesn't match with any existed table
+    - # of columns in a table should <= 100
+    - # of columns in primary key declaration <= 100
+  * If a create statement is successfully executed, materialize a table with the specified schema.
+  

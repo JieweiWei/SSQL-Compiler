@@ -27,7 +27,8 @@ SQL(short for Simplified SQL) is a subset of features in standard SQL language. 
 
 ## Context Free Grammar
   * ssql_stmt -> create_stmt | insert_stmt | delete_stmt | query_stmt
-  * create_stmt -> create table id(decl_list)
+
+  * create_stmt -> create table id(decl_list);
   * decl_list -> decl | decl_list, decl
   * decl -> id int default_spec | primary key (column_list)
   * default_spec -> default = num | ε
@@ -45,4 +46,44 @@ SQL(short for Simplified SQL) is a subset of features in standard SQL language. 
     - # of columns in a table should <= 100
     - # of columns in primary key declaration <= 100
   * If a create statement is successfully executed, materialize a table with the specified schema.
-  
+
+  * insert_stmt -> insert into id(column_list) values (value_list);
+  * value_list -> num | value_list, num
+  * A valid insert statement is:
+    - can be derived from the context free grammar
+    - the table should exist
+    - no duplicate columns
+    - all columns should be in the schema of the table
+    - # of columns should equal to # of values
+    - no primary key constraint violation
+  * For a column without specified value, default value is used. If an insert statement is executed successfully, a new row will be inserted into the table.
+
+  * delete_stmt -> delete from id where_clause;
+  * where_clause -> where conjunct_list | ε
+  * conjunct_list -> bool | conjunct_list && bool
+  * bool -> operand rop operand
+  * operand -> num | id
+  * rop -> <> | == | > | < | >= | <=
+  * A valid delete statement is:
+    - can be derived from the context free grammar
+    - the table should exist
+    - columns occurring in the where clause (if any) should be in the schema of the table
+  * If there is a where clause, delete all rows whose where clause is evaluated to be TRUE. Otherwise, delete all rows in the table.
+
+  * query_stmt -> select select_list from id where_clause;
+  * select_list -> column_list | *
+  * A valid query statement is:
+    - can be derived from the context free grammar
+    - the table should exist
+    - all columns (except * ) in the select list should be in the schema of the table
+    - columns occurring in the where clause (if any) should be in the schema of the table
+  * If a where clause is present, those rows whose where clauses are evaluated to FALSE should be omitted. Otherwise, none should be omitted.
+  * If ' * ' is present in the select list, all columns should be returned. Otherwise, return only those columns specified in the select list.
+
+## Implementation Notes
+  * C/C++ only, no external tools (flex, bison, and the like) except STL
+  * Lexer - implement using a deterministic finite automaton
+  * Parser - implement a predictive parser
+
+## Program Input
+

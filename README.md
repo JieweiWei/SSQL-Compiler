@@ -19,31 +19,32 @@ SQL(short for Simplified SQL) is a subset of features in standard SQL language. 
   GROUP BY id
   ORDER BY score
   LIMIT 100;
+
   * SSQL
   SELECT sid, age
   FROM Student
   WHERE age > 15 && age < 18;
 
 ## Context Free Grammar
-  ssql_stmt -> create_stmt
-             | insert_stmt
-             | delete_stmt
-             | query_stmt
+  1. ssql_stmt -> create_stmt
+                | insert_stmt
+                | delete_stmt
+                | query_stmt
 
-  create_stmt -> create table id(decl_list);
+  2. create_stmt -> create table id(decl_list);
 
-  decl_list -> decl | decl_list, decl
+  3. decl_list -> decl | decl_list, decl
 
-  decl -> id int default_spec | primary key (column_list)
+  4. decl -> id int default_spec | primary key (column_list)
 
-  default_spec -> default = num | ε
+  5. default_spec -> default = num | ε
 
-  column_list -> id | column_list, id
+  6. column_list -> id | column_list, id
 
-  id (identifier) is a sequence of digits, underline and letters. All identifiers should start with a letter or an underline. The maximum length of an identifier is 64.
+  7. id (identifier) is a sequence of digits, underline and letters. All identifiers should start with a letter or an underline. The maximum length of an identifier is 64.
 
-  num (number) is a sequence of digits. (of 32-bits)
+  8. num (number) is a sequence of digits. (of 32-bits)
 
-  Reserved keywords are case-insensitive.
+  9. Reserved keywords are case-insensitive.
 
-  If the default value is not specified, 0 is used implicitly.
+  10. If the default value is not specified, 0 is used implicitly.

@@ -115,7 +115,6 @@ Program Output
   * When an error is encountered, print meaningful error prompts. (which line, which column, what's the error ...)
   * If the execution succeeds, print a message telling the success.
   * Specially, for a query, print the result in a neat way. The effect should be similar to:
-  ```shell
   +--------+--------+  
   |   sid  |   age  |  
   +--------+--------+  
@@ -123,4 +122,3 @@ Program Output
   +--------+--------+  
   |    2   |   19   |  
   +--------+--------+  
-  ```

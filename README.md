@@ -34,14 +34,14 @@ Context Free Grammar
   * create_stmt -> create table id(decl_list);
   * decl_list -> decl | decl_list, decl
   * decl -> id int default_spec | primary key (column_list)
-  * default_spec -> default = simple_expr | ε
+  * default_spec -> default = expr | ε
   * column_list -> id | column_list, id
   * id (identifier) is a sequence of digits, underline and letters. All identifiers should start with a letter or an underline. The maximum length of an identifier is 64.
-  * simple_expr -> simple_term | simple_expr + simple_term | simple_expr - simple_term
-  * simple_term -> simple_unary | simple_term * simple_unary | simple_term / simple_unary
-  * simple_unary -> (simple_expr) | -simple_unary | +simple_unary | num
+  * expr -> term | expr + term | expr - term
+  * term -> unary | term * unary | term / unary
+  * unary -> (expr) | -unary | +unary | id | num
   * num (number) is a sequence of digits. (of 32-bits)
-  * Reserved keywords are case-insensitive.
+  * Reserved keywords are: create, table, int, default, primary, key, insert, into, values, delete, from, where, select Reserved keywords are case-insensitive.
   * If the default value is not specified, 0 is used implicitly.
   * A valid create statement is:
     - can be derived from the context free grammar
@@ -54,7 +54,7 @@ Context Free Grammar
   * If a create statement is successfully executed, materialize a table with the specified schema.
 
   * insert_stmt -> insert into id(column_list) values (value_list);
-  * value_list -> simple_expr | value_list, simple_expr
+  * value_list -> expr | value_list, expr
   * A valid insert statement is:
     - can be derived from the context free grammar
     - the table should exist
@@ -65,9 +65,11 @@ Context Free Grammar
   * For a column without specified value, default value is used. If an insert statement is executed successfully, a new row will be inserted into the table.
 
   * delete_stmt -> delete from id where_clause;
-  * where_clause -> where conjunct_list | ε
-  * conjunct_list -> bool | conjunct_list && bool
-  * bool -> operand rop operand
+  * where_clause -> where disjunct | ε
+  * disjunct -> conjunct | disjunct || conjunct
+  * conjunct -> bool | conjunct && bool
+  * bool -> (disjunct) | !bool | comp
+  * comp -> expr rop expr
   * operand -> num | id
   * rop -> <> | == | > | < | >= | <=
   * A valid delete statement is:
@@ -114,11 +116,4 @@ Program Output
 ==============
   * When an error is encountered, print meaningful error prompts. (which line, which column, what's the error ...)
   * If the execution succeeds, print a message telling the success.
-  * Specially, for a query, print the result in a neat way. The effect should be similar to:
-  +--------+--------+  
-  |   sid  |   age  |  
-  +--------+--------+  
-  |    1   |   18   |  
-  +--------+--------+  
-  |    2   |   19   |  
-  +--------+--------+  
+  * Specially, for a query, print the result in a neat way.

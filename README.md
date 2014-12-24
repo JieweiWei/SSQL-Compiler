@@ -13,24 +13,15 @@ SQL(short for Simplified SQL) is a subset of features in standard SQL language. 
 
 ## Examples
   * Standard SQL (MySQL)
-
   SELECT S.sid AS id, SUM(C.score) AS score
-
   FROM Student S, Courses C
-
   WHERE S.sid == C.sid && S.age > 18
-
   GROUP BY id
-
   ORDER BY score
-
   LIMIT 100;
   * SSQL
-
   SELECT sid, age
-
   FROM Student
-
   WHERE age > 15 && age < 18;
 
 

@@ -116,11 +116,11 @@ Program Output
   * If the execution succeeds, print a message telling the success.
   * Specially, for a query, print the result in a neat way. The effect should be similar to:
   ```shell
-  +--------+--------+
-  |   sid  |   age  |
-  +--------+--------+
-  |    1   |   18   |
-  +--------+--------+
-  |    2   |   19   |
-  +--------+--------+
+  +--------+--------+  
+  |   sid  |   age  |  
+  +--------+--------+  
+  |    1   |   18   |  
+  +--------+--------+  
+  |    2   |   19   |  
+  +--------+--------+  
   ```

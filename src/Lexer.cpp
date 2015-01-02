@@ -27,8 +27,8 @@ Lexer::Lexer(istream* _input) {
 
 Token Lexer::scan() {
   /* Ignore whitespace. */
-  while (true) {
-    input->get(peek);
+  while (input->get(peek)) {
+    //cout << peek << endl;
     if (peek == ' ' || peek == '\t') {
       continue;
     } else if (peek == '\n') {
@@ -50,7 +50,7 @@ Token Lexer::scan() {
     transform(lexeme.begin(), lexeme.end(), lowerLexeme.begin(), ::tolower);
     map<string, int>::iterator it = keywords.find(lowerLexeme);
 
-    Word w = it == keywords.end() ? Word(ID, lexeme) : Word(it->second, it->first);
+    //Word w = it == keywords.end() ? Word(ID, lexeme) : Word(it->second, it->first);
     //cout << "(" << w.getLexeme() << ", " << w.getTag() << ")" << endl;
 
     return it == keywords.end() ? Word(ID, lexeme) : Word(it->second, it->first);
@@ -75,7 +75,6 @@ Token Lexer::scan() {
   if (peek == '<' || peek == '>' || peek == '=') {
     if (peek == '<' && input->peek() == '=') {
       input->get(peek);
-
 
       //cout << "(" << "<=, " << LE << ")" << endl;
 
@@ -120,7 +119,10 @@ Token Lexer::scan() {
     }
   }
 
-  Token t(peek);
+  if (peek == ' ' || peek == '\n' || peek == '\t') {
+    peek = '\0';
+  }
+  //Token t(peek);
   //cout << "(" << peek << ", " << t.getTag() << ")" << endl;
   return Token(peek);
 }

@@ -21,12 +21,12 @@
 /* Numbers. */
 #define NUM 270
 
-/* Relational Operators. */
+/* Relational operators. */
 #define NE 271
 #define EQ 272
 #define GE 273
 #define LE 274
 
-/* Logical Operators. */
+/* Logical operators. */
 #define AND 275
 #define OR 276

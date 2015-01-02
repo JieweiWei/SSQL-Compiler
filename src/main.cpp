@@ -5,11 +5,11 @@
 using namespace std;
 
 void outputTokens(istream* is) {
-  while (!is->eof()) {
+  do {
     Lexer lexer(is);
     Token token = lexer.scan();
-    cout << token.getTag() << endl;
-  }
+    //cout << token.getTag() << endl;
+  } while(!is->eof());
 }
 
 int main(int argc,char **argv) {
